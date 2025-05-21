@@ -2,7 +2,7 @@
   "name": "ChallengeGates",
   "version_number": "1.0.0",
   "website_url": "https://github.com/Wexop/ChallengeGates",
-  "description": "Adds teleporters that send players into deadly rooms. Survive the challenge to earn a golden trophy — and serious cash",
+  "description": "Adds teleporters that send players into deadly rooms. Survive the challenge to earn a golden trophy, and serious cash !",
   "dependencies": [
     "BepInEx-BepInExPack-5.4.2100",
     "AinaVT-LethalConfig-1.4.2",

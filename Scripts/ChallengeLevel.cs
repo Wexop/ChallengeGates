@@ -19,11 +19,6 @@ public class ChallengeLevel : MonoBehaviour
 
     private GameObject trophy;
     public Trophy trophyScript;
-    
-    private void Start()
-    {
-        ChallengeGatesPlugin.instance.numberOfRoom++;
-    }
 
     public virtual void OnSpawnServerExtra()
     {

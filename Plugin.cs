@@ -94,7 +94,7 @@ namespace ChallengeGates
         {
             var roomNb = numberOfRoom >= 0 ? numberOfRoom : 0;
             
-            return baseRoomYPosition.Value + 50 * roomNb;
+            return baseRoomYPosition.Value + 100 * roomNb;
         }
 
         string RarityString(int rarity)

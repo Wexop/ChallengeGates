@@ -22,6 +22,7 @@ public class ChallengeGate : NetworkBehaviour
     private void Start()
     {
         if(IsServer) SpawnLevelServerRpc(Random.Range(0, levelObjects.Count), ChallengeGatesPlugin.instance.GetNewRoomPosY());
+        ChallengeGatesPlugin.instance.numberOfRoom++;
     }
 
     [ServerRpc]
