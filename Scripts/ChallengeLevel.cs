@@ -19,6 +19,11 @@ public class ChallengeLevel : MonoBehaviour
 
     private GameObject trophy;
     public Trophy trophyScript;
+    
+    private void Start()
+    {
+        ChallengeGatesPlugin.instance.numberOfRoom++;
+    }
 
     public virtual void OnSpawnServerExtra()
     {
@@ -39,6 +44,8 @@ public class ChallengeLevel : MonoBehaviour
         onPlayerEscape.ForEach(e => e.Invoke(player));
 
         player.transform.position = RoundManager.FindMainEntrancePosition(false, true);
+        
+        Destroy(gameObject);
 
     }
 
@@ -53,9 +60,11 @@ public class ChallengeLevel : MonoBehaviour
 
     private void OnDestroy()
     {
+        ChallengeGatesPlugin.instance.numberOfRoom--;
         if (GameNetworkManager.Instance.localPlayerController.IsServer)
         {
-            trophy.GetComponent<NetworkObject>().Despawn();
+            if(trophyScript.scrapValue == ChallengeGatesPlugin.instance.baseTrophyValue.Value) trophy.GetComponent<NetworkObject>().Despawn();
+            
         }
     }
 }

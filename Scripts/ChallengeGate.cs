@@ -21,21 +21,21 @@ public class ChallengeGate : NetworkBehaviour
 
     private void Start()
     {
-        if(IsServer) SpawnLevelServerRpc(Random.Range(0, levelObjects.Count));
+        if(IsServer) SpawnLevelServerRpc(Random.Range(0, levelObjects.Count), ChallengeGatesPlugin.instance.GetNewRoomPosY());
     }
 
     [ServerRpc]
-    void SpawnLevelServerRpc(int index)
+    void SpawnLevelServerRpc(int index, float pos)
     {
-        SpawnLevelClientRpc(index);
+        SpawnLevelClientRpc(index, pos);
     }
 
     [ClientRpc]
-    void SpawnLevelClientRpc(int index)
+    void SpawnLevelClientRpc(int index, float pos)
     {
         var levelObject = levelObjects[index];
         
-        var o = Instantiate(levelObject, transform.position + (Vector3.down * 300), Quaternion.identity);
+        var o = Instantiate(levelObject, transform.position + (Vector3.down * pos), Quaternion.identity);
         level = o.GetComponent<ChallengeLevel>();
         
         if (IsServer)

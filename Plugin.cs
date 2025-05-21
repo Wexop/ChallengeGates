@@ -26,6 +26,8 @@ namespace ChallengeGates
 
         public static ChallengeGatesPlugin instance;
         
+        public ConfigEntry<float> baseRoomYPosition;
+        
         public ConfigEntry<int> maxSpawn;
         public ConfigEntry<int> minSpawn;
         public ConfigEntry<int> baseTrophyValue;
@@ -33,6 +35,8 @@ namespace ChallengeGates
         public ConfigEntry<int> trophyDecreaseDelay;
         
         public ConfigEntry<bool> debug;
+
+        public int numberOfRoom = 0;
 
 
         public GameObject trophyGameObject;
@@ -84,6 +88,13 @@ namespace ChallengeGates
             Logger.LogInfo($"ChallengeGates is ready!");
         }
 
+        public float GetNewRoomPosY()
+        {
+            var roomNb = numberOfRoom >= 0 ? numberOfRoom : 0;
+            
+            return baseRoomYPosition.Value + 50 * roomNb;
+        }
+
         string RarityString(int rarity)
         {
             return
@@ -95,6 +106,13 @@ namespace ChallengeGates
         {
             
             //GENERAL
+            
+            baseRoomYPosition = Config.Bind(
+                "General", 
+                "baseRoomYPosition", 
+                400f,
+                "Position Y of room. You don't need to restart the game :)");
+            CreateFloatConfig(baseRoomYPosition, 0, 1000);
             
             minSpawn = Config.Bind(
                 "General", 
@@ -114,21 +132,21 @@ namespace ChallengeGates
             baseTrophyValue = Config.Bind(
                 "Trophy", 
                 "BaseTrophyValue", 
-                300,
+                250,
                 "Base trophy value. Note that value decrease will you do the challenge and stop when you grab the trophy. You don't need to restart the game :)");
             CreateIntConfig(baseTrophyValue, 0, 750);
             
             trophyDecreaseAmount = Config.Bind(
                 "Trophy", 
                 "TrophyDecreaseAmount", 
-                10,
+                5,
                 "Trophy value decrease with time. Amount that trophy lose each time. You don't need to restart the game :)");
             CreateIntConfig(trophyDecreaseAmount);
             
             trophyDecreaseDelay = Config.Bind(
                 "Trophy", 
                 "TrophyDecreaseDelay", 
-                2,
+                5,
                 "Trophy value decrease with time. Delay in seconds. You don't need to restart the game :)");
             CreateIntConfig(trophyDecreaseDelay, 0, 60);
 
