@@ -49,16 +49,16 @@ public class ChallengeLevel : MonoBehaviour
 
     }
 
-    public void OnPlayerEnter()
+    public virtual void OnPlayerEnter(ulong playerId)
     {
 
         if(enterNotification.Length > 0)
         {
-            HUDManager.Instance.DisplayTip("Warning", enterNotification);
+           if(GameNetworkManager.Instance.localPlayerController.playerClientId == playerId) HUDManager.Instance.DisplayTip("Warning", enterNotification);
         }
     }
 
-    private void OnDestroy()
+    public virtual void OnDestroy()
     {
         ChallengeGatesPlugin.instance.numberOfRoom--;
         if (GameNetworkManager.Instance.localPlayerController.IsServer)

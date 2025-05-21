@@ -85,7 +85,8 @@ public class ChallengeGate : NetworkBehaviour
             {
                 player.transform.position = level.playerSpawnPos.position;
                 player.disableMoveInput = false;
-                level.OnPlayerEnter();
+                player.sprintMeter = 1f;
+                level.OnPlayerEnter(playerId);
             }
         });
 

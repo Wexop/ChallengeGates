@@ -41,6 +41,7 @@ namespace ChallengeGates
 
         public GameObject trophyGameObject;
         public GameObject gateGameObject;
+        public GameObject movingSpikesObject;
 
         private float timer;
         
@@ -83,6 +84,7 @@ namespace ChallengeGates
             LoadConfigs();
             RegisterScrap(bundle);
             RegisterHazard(bundle);
+            RegisterNetworkPrefabs(bundle);
             
             
             Logger.LogInfo($"ChallengeGates is ready!");
@@ -124,7 +126,7 @@ namespace ChallengeGates
             maxSpawn = Config.Bind(
                 "General", 
                 "MaxSpawn", 
-                7,
+                2,
                 "Max challenge gate possible for one game. You need to restart the game.");
             CreateIntConfig(maxSpawn, restart:true);
             
@@ -159,6 +161,16 @@ namespace ChallengeGates
                 false,
                 "Enable debug");
             CreateBoolConfig(debug);
+        }
+
+        void RegisterNetworkPrefabs(AssetBundle bundle)
+        {
+            GameObject movingSpikes = bundle.LoadAsset<GameObject>("Assets/LethalCompany/Mods/ChallengeGates/MovingSpikes.prefab");
+            NetworkPrefabs.RegisterNetworkPrefab(movingSpikes);
+            Utilities.FixMixerGroups(movingSpikes);
+            Logger.LogInfo($"{movingSpikes.name} FOUND");
+            movingSpikesObject = movingSpikes;
+
         }
         
         void RegisterScrap(AssetBundle bundle)
