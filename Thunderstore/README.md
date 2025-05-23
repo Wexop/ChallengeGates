@@ -15,3 +15,4 @@ This mod have some configs, check them to have a customized experience !
 
 - "Animated panel of teleportation" (https://skfb.ly/6TXYt) by XP_Frost is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 - "Trophy" (https://skfb.ly/o9MJJ) by MrPuppet is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+- Strange teleport sound by GaryQ -- https://freesound.org/s/135435/ -- License: Creative Commons 0

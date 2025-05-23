@@ -22,7 +22,7 @@ namespace ChallengeGates
 
         const string GUID = "wexop.challenge_gates";
         const string NAME = "ChallengeGates";
-        const string VERSION = "1.0.0";
+        const string VERSION = "1.0.1";
 
         public static ChallengeGatesPlugin instance;
         
@@ -90,11 +90,11 @@ namespace ChallengeGates
             Logger.LogInfo($"ChallengeGates is ready!");
         }
 
-        public float GetNewRoomPosY()
+        public Vector3 GetNewRoomPos()
         {
             var roomNb = numberOfRoom >= 0 ? numberOfRoom : 0;
             
-            return baseRoomYPosition.Value + 100 * roomNb;
+            return new Vector3( 100 * roomNb, -baseRoomYPosition.Value, 0);
         }
 
         string RarityString(int rarity)
@@ -112,7 +112,7 @@ namespace ChallengeGates
             baseRoomYPosition = Config.Bind(
                 "General", 
                 "baseRoomYPosition", 
-                400f,
+                450f,
                 "Position Y of room. You don't need to restart the game :)");
             CreateFloatConfig(baseRoomYPosition, 0, 1000);
             

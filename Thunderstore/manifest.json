@@ -5,7 +5,7 @@
   "description": "Adds teleporters that send players into deadly rooms. Survive the challenge to earn a golden trophy, and serious cash !",
   "dependencies": [
     "BepInEx-BepInExPack-5.4.2100",
-    "AinaVT-LethalConfig-1.4.2",
-    "Evaisa-LethalLib-0.16.2"
+    "AinaVT-LethalConfig-1.4.6",
+    "Evaisa-LethalLib-1.0.3"
   ]
 }

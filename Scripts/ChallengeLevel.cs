@@ -4,7 +4,6 @@ using GameNetcodeStuff;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
-using Vector3 = System.Numerics.Vector3;
 
 namespace ChallengeGates.Scripts;
 
@@ -19,6 +18,8 @@ public class ChallengeLevel : MonoBehaviour
 
     private GameObject trophy;
     public Trophy trophyScript;
+
+    public Vector3 connectedPosition;
 
     public virtual void OnSpawnServerExtra()
     {
@@ -38,7 +39,8 @@ public class ChallengeLevel : MonoBehaviour
     {
         onPlayerEscape.ForEach(e => e.Invoke(player));
 
-        player.transform.position = RoundManager.FindMainEntrancePosition(false, true);
+        //player.transform.position = RoundManager.FindMainEntrancePosition(false, true);
+        player.transform.position = connectedPosition;
         
         Destroy(gameObject);
 

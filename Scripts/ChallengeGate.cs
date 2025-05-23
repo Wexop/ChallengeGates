@@ -14,6 +14,9 @@ public class ChallengeGate : NetworkBehaviour
     private static readonly int Close = Animator.StringToHash("close");
     public Animator animator;
     
+    public AudioSource audioSource;
+    public AudioSource audioLoopSource;
+    
     public List<GameObject> levelObjects;
     private ChallengeLevel level;
 
@@ -21,23 +24,27 @@ public class ChallengeGate : NetworkBehaviour
 
     private void Start()
     {
-        if(IsServer) SpawnLevelServerRpc(Random.Range(0, levelObjects.Count), ChallengeGatesPlugin.instance.GetNewRoomPosY());
+        if(IsServer)
+        {
+            SpawnLevelServerRpc(Random.Range(0, levelObjects.Count), ChallengeGatesPlugin.instance.GetNewRoomPos());
+        }
         ChallengeGatesPlugin.instance.numberOfRoom++;
     }
 
     [ServerRpc]
-    void SpawnLevelServerRpc(int index, float pos)
+    void SpawnLevelServerRpc(int index, Vector3 pos)
     {
         SpawnLevelClientRpc(index, pos);
     }
 
     [ClientRpc]
-    void SpawnLevelClientRpc(int index, float pos)
+    void SpawnLevelClientRpc(int index, Vector3 pos)
     {
         var levelObject = levelObjects[index];
         
-        var o = Instantiate(levelObject, transform.position + (Vector3.down * pos), Quaternion.identity);
+        var o = Instantiate(levelObject, pos, Quaternion.identity);
         level = o.GetComponent<ChallengeLevel>();
+        level.connectedPosition = transform.position;
         
         if (IsServer)
         {
@@ -69,6 +76,8 @@ public class ChallengeGate : NetworkBehaviour
     [ClientRpc]
     void OnPlayerCollideClientRpc(ulong playerId)
     {
+        audioLoopSource.Stop();
+        audioSource.Play();
         animator.SetTrigger(Close);
         gateIsEnabled = false;
         StartCoroutine(TeleportationAnimation(playerId));
