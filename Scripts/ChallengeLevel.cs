@@ -9,6 +9,9 @@ namespace ChallengeGates.Scripts;
 
 public class ChallengeLevel : MonoBehaviour
 {
+
+    public int id;
+    
     public Transform playerSpawnPos;
     public Transform trophySpawnPos;
 
@@ -57,11 +60,19 @@ public class ChallengeLevel : MonoBehaviour
 
     public virtual void OnDestroy()
     {
-        ChallengeGatesPlugin.instance.numberOfRoom--;
+        //ChallengeGatesPlugin.instance.numberOfRoom--;
+        ChallengeGatesPlugin.instance.spawnedRooms.Remove(id);
         if (GameNetworkManager.Instance.localPlayerController.IsServer)
         {
-            if(trophyScript.scrapValue == ChallengeGatesPlugin.instance.baseTrophyValue.Value) trophy.GetComponent<NetworkObject>().Despawn();
-            
+            try
+            {
+                if(trophyScript.scrapValue == ChallengeGatesPlugin.instance.baseTrophyValue.Value) trophy.GetComponent<NetworkObject>().Despawn();
+
+            }
+            catch
+            {
+                // ignored
+            }
         }
     }
 }

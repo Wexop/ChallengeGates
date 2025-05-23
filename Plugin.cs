@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BepInEx;
 using System.IO;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace ChallengeGates
         public ConfigEntry<bool> debug;
 
         public int numberOfRoom = 0;
+        public Dictionary<int, Vector3> spawnedRooms = new Dictionary<int, Vector3>();
 
 
         public GameObject trophyGameObject;
@@ -64,7 +66,7 @@ namespace ChallengeGates
 
                     var n = o.GetComponent<NetworkObject>();
                     if(n.IsOwner) n.Spawn();
-                    timer = 5;
+                    timer = 2;
                 }
             }
         }
@@ -90,11 +92,28 @@ namespace ChallengeGates
             Logger.LogInfo($"ChallengeGates is ready!");
         }
 
-        public Vector3 GetNewRoomPos()
+        public (int, Vector3) GetNewRoomPos()
         {
-            var roomNb = numberOfRoom >= 0 ? numberOfRoom : 0;
+            var roomNb = numberOfRoom;
             
-            return new Vector3( 100 * roomNb, -baseRoomYPosition.Value, 0);
+            numberOfRoom++;
+
+            Vector3 farestRoom = new Vector3( 0, -baseRoomYPosition.Value, 0);
+            
+            foreach (var keyValuePair in spawnedRooms)
+            {
+                if (Vector3.Distance(Vector3.zero, farestRoom) < Vector3.Distance(Vector3.zero, keyValuePair.Value))
+                {
+                    farestRoom = keyValuePair.Value;
+                }
+            }
+
+            var pos = farestRoom + new Vector3(100, 0, 0);
+            
+            spawnedRooms.Add(roomNb, pos);
+            
+            return (roomNb, pos);
+            
         }
 
         string RarityString(int rarity)
