@@ -1,6 +1,6 @@
 {
   "name": "ChallengeGates",
-  "version_number": "1.0.1",
+  "version_number": "1.0.2",
   "website_url": "https://github.com/Wexop/ChallengeGates",
   "description": "Adds teleporters that send players into deadly rooms. Survive the challenge to earn a golden trophy, and serious cash !",
   "dependencies": [

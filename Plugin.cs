@@ -23,7 +23,7 @@ namespace ChallengeGates
 
         const string GUID = "wexop.challenge_gates";
         const string NAME = "ChallengeGates";
-        const string VERSION = "1.0.1";
+        const string VERSION = "1.0.2";
 
         public static ChallengeGatesPlugin instance;
         
